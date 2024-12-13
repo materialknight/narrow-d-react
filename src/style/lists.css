@@ -1,0 +1,48 @@
+.list {
+
+   list-style-type: none;
+   padding: 0;
+   margin: 0;
+   width: 100%;
+   border: 1px solid green;
+
+   [type=checkbox] {
+      align-self: center;
+      display: block;
+      margin: 0 0 0 0.4rem;
+      width: 1.6rem;
+      height: 1.6rem;
+   }
+
+   .favicon {
+      align-self: center;
+      margin-left: 0.4rem;
+      margin-right: 0.4rem;
+   }
+
+   .move_btn {
+      border-left: 1px solid green;
+   }
+
+   a {
+      border-left: 1px solid green;
+      border-right: 1px solid green;
+      padding-left: 0.4rem;
+      padding-right: 0.4rem;
+   }
+
+   button {
+      border: none;
+   }
+
+   li {
+      display: flex;
+      height: 1.9rem;
+      color: green;
+      border-bottom: 1px solid green;
+   }
+
+   li:last-child {
+      border: none;
+   }
+}

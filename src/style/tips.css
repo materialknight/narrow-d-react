@@ -1,0 +1,17 @@
+#tips {
+   display: inline-flex;
+   align-items: center;
+   justify-content: center;
+
+   padding: auto;
+   border: none;
+   /* border-radius: 4px; */
+
+   width: initial;
+   height: 2rem;
+
+   color: darkorange;
+   /* background-color: cadetblue; */
+
+   vertical-align: top;
+}

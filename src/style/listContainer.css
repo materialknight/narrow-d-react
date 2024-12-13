@@ -1,0 +1,11 @@
+#list_container {
+
+   display: flex;
+   flex-wrap: wrap;
+   gap: 0.4rem;
+
+   [type=search] {
+      width: 100%;
+      line-height: 1.5;
+   }
+}
