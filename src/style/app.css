@@ -3,8 +3,8 @@
 /* @import "./Tips.css"; */
 
 body {
-   font-family: system-ui, Arial, Helvetica, sans-serif;
-   font-size: medium;
+   font-family: var(--fonts);
+   font-size: var(--fonts-size);
    font-synthesis: none;
    text-rendering: optimizeLegibility;
    -webkit-font-smoothing: antialiased;
@@ -13,7 +13,13 @@ body {
    color-scheme: light dark;
    margin: 0;
    min-width: 350px;
-   padding: 0.4rem;
+
+   --fonts: system-ui, Arial, Helvetica, sans-serif;
+   --fonts-size: 15px;
+   --row-height: 1.9rem;
+   --spacing: 0.5rem;
+
+   padding: var(--spacing);
 }
 
 a {
@@ -26,7 +32,8 @@ a {
 }
 
 a:hover,
-button:hover {
+button:hover,
+label:hover {
    background-color: rgba(255, 255, 153, 0.5);
    outline: 3px solid orange;
 }
@@ -34,7 +41,7 @@ button:hover {
 button {
    display: inline-flex;
    align-items: center;
-   justify-content: center;
+   /* justify-content: center; */
 
    border: 1px solid black;
    background-color: transparent;

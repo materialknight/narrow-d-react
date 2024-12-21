@@ -1,43 +1,63 @@
 .list {
 
-   list-style-type: none;
+   /* list-style-type: none;
    padding: 0;
-   margin: 0;
+   margin: 0; */
    width: 100%;
    border: 1px solid green;
 
    [type=checkbox] {
       align-self: center;
-      display: block;
-      margin: 0 0 0 0.4rem;
-      width: 1.6rem;
-      height: 1.6rem;
+      /* display: block; */
+      margin: 0 0 0 0.5rem;
+      min-width: 16px;
+      height: 16px;
+      accent-color: green;
    }
 
    .favicon {
       align-self: center;
-      margin-left: 0.4rem;
-      margin-right: 0.4rem;
+      margin-left: var(--spacing);
+      margin-right: var(--spacing);
    }
 
-   .move_btn {
+   /* .move_btn {
       border-left: 1px solid green;
-   }
+   } */
 
    a {
       border-left: 1px solid green;
       border-right: 1px solid green;
-      padding-left: 0.4rem;
-      padding-right: 0.4rem;
+      padding-left: var(--spacing);
+      padding-right: var(--spacing);
    }
 
    button {
       border: none;
    }
 
+   .list_controls {
+      display: flex;
+      height: var(--row-height);
+   }
+
+   header {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      width: 100%;
+   }
+
+   ol {
+      list-style-type: none;
+      padding: 0;
+      margin: 0;
+      border-top: 1px solid green;
+   }
+
    li {
       display: flex;
-      height: 1.9rem;
+      height: var(--row-height);
       color: green;
       border-bottom: 1px solid green;
    }
