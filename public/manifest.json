@@ -1,11 +1,12 @@
 {
    "manifest_version": 3,
    "name": "NarrowD",
-   "version": "1.0.0",
+   "version": "2.0.0",
    "description": "Narrow down your search results to the sites you want",
    "permissions": [
       "search",
-      "storage"
+      "storage",
+      "contextMenus"
    ],
    "host_permissions": [
       "*://*/*"

@@ -29,13 +29,31 @@
       height: 26px;
       padding-left: 6px;
       padding-right: 6px;
-
-      border: 1px solid black;
       background-color: transparent;
-      color: crimson;
+      border-radius: 5px;
    }
 
-   input:checked+label {
-      border: 2px solid blue;
-   }
+   /* input:checked+label {
+      background-color: aquamarine;
+   } */
+}
+
+.inclusive-tab {
+   border: 2px solid var(--inclusive-color);
+   color: var(--inclusive-color);
+}
+
+input:checked+.inclusive-tab {
+   background-color: aquamarine;
+   color: black;
+}
+
+.exclusive-tab {
+   border: 2px solid var(--exclusive-color);
+   color: var(--exclusive-color);
+}
+
+input:checked+.exclusive-tab {
+   background-color: lightpink;
+   color: black;
 }

@@ -1,5 +1,9 @@
-//* FUNCTIONS:
-// TODO : USE STRICT MODE
+// Reminder:
+
+// To send a message to the content script, use chrome.tabs.sendMessage() in the sending file, and chrome.runtime.onMessage.addListener() in the content script.
+
+// To send a message to the service worker, use chrome.runtime.sendMessage() in the sending file, and chrome.runtime.onMessage.addListener() in the service worker.
+
 const GET_storage = () => {
    return chrome.storage.local
       .get('sites')
@@ -56,6 +60,25 @@ GET_storage().then(() => {
    chrome.storage.onChanged.addListener(GET_storage)
    chrome.tabs.onUpdated.addListener(HANDLE_tab_update)
 })
+
+
+//TODO: FINISH THE CODE RIGHT BELOW
+// chrome.runtime.onMessage.addListener((message, sender, sendResponse) => {
+//    const { active_list } = message
+
+//    chrome.contextMenus.removeAll().then(() => {
+
+//       for (const item of active_list)
+//       {
+//          chrome.contextMenus.create({
+//             contexts: ["selection"],
+//             title:
+//          })
+//       }
+//    })
+
+// })
+
 
 // let URL_state = 'unliked'
 

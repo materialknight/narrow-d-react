@@ -7052,110 +7052,14 @@ function requireClient() {
   return client;
 }
 var clientExports = requireClient();
-function reducer(superlist, action) {
-  const updated_superlist = { ...superlist };
-  switch (action.type) {
-    case "LOAD_LISTS": {
-      return action.superlist ?? {
-        lists: [{ list_name: "_unclassified", sites: [], inclusive: true, ascending_order: true, active: true }],
-        ascending_order: true
-      };
-    }
-    case "ADD_SITE": {
-      const { list_index, new_site } = action;
-      const updated_sublist = updated_superlist.lists[list_index];
-      updated_sublist.sites.push(new_site);
-      sort_obj_arr(
-        updated_sublist.sites,
-        "origin",
-        updated_sublist.ascending_order
-      );
-      return updated_superlist;
-    }
-    case "DELETE_SITE": {
-      const { list_index, site_index } = action;
-      updated_superlist.lists[list_index].sites.splice(site_index, 1);
-      return updated_superlist;
-    }
-    case "CREATE_LIST": {
-      const { list_name } = action;
-      updated_superlist.lists.push({ list_name, sites: [], inclusive: true, ascending_order: true });
-      sort_obj_arr(
-        updated_superlist.lists,
-        "list_name",
-        updated_superlist.ascending_order
-      );
-      return updated_superlist;
-    }
-    case "DELETE_LIST": {
-      const { list_index } = action;
-      updated_superlist.lists.splice(list_index, 1);
-      console.log(updated_superlist);
-      return updated_superlist;
-    }
-    case "EDIT_LIST_NAME": {
-      const { list_index, new_list_name } = action;
-      updated_superlist.lists[list_index].list_name = new_list_name;
-      sort_obj_arr(
-        updated_superlist.lists,
-        "list_name",
-        updated_superlist.ascending_order
-      );
-      return updated_superlist;
-    }
-    case "REVERSE_SUBLIST": {
-      const { list_index } = action;
-      const reversed_sublist = updated_superlist.lists[list_index];
-      reversed_sublist.ascending_order = !reversed_sublist.ascending_order;
-      reversed_sublist.sites.reverse();
-      return updated_superlist;
-    }
-    case "REVERSE_SUPERLIST": {
-      updated_superlist.ascending_order = !updated_superlist.ascending_order;
-      updated_superlist.lists.reverse();
-      return updated_superlist;
-    }
-    case "CHECK_UNCHECK": {
-      const { list_index, site_index } = action;
-      const site = updated_superlist.lists[list_index].sites[site_index];
-      site.checked = !site.checked;
-      return updated_superlist;
-    }
-    case "CHECK_UNCHECK_ALL": {
-      const { list_index, change_ev } = action;
-      const check_all = change_ev.target.checked;
-      const sites = updated_superlist.lists[list_index].sites;
-      for (const site of sites) {
-        site.checked = check_all;
-      }
-      return updated_superlist;
-    }
-    case "CHANGE_TAB": {
-      const { list_name } = action;
-      for (const list of updated_superlist.lists) {
-        list.active = list.list_name === list_name;
-      }
-      return updated_superlist;
-    }
-    default:
-      console.error(`Unknown action type: ${action.type}`);
-  }
-}
-function sort_obj_arr(arr, obj_key, asc = true) {
-  if (asc) {
-    arr.sort((a, b) => {
-      if (a[obj_key] < b[obj_key]) return -1;
-      if (a[obj_key] > b[obj_key]) return 1;
-      return 0;
-    });
-  } else {
-    arr.sort((a, b) => {
-      if (a[obj_key] < b[obj_key]) return 1;
-      if (a[obj_key] > b[obj_key]) return -1;
-      return 0;
-    });
-  }
-}
+const Add_Icon = ({ fill, width = "24px", height = "24px" }) => /* @__PURE__ */ jsxRuntimeExports.jsx("svg", { xmlns: "http://www.w3.org/2000/svg", viewBox: "0 -960 960 960", width, height, fill, children: /* @__PURE__ */ jsxRuntimeExports.jsx("path", { d: "M454-454H260v-52h194v-194h52v194h194v52H506v194h-52v-194Z" }) });
+const Delete_Icon = ({ fill, width = "24px", height = "24px" }) => /* @__PURE__ */ jsxRuntimeExports.jsx("svg", { xmlns: "http://www.w3.org/2000/svg", viewBox: "0 -960 960 960", width, height, fill, children: /* @__PURE__ */ jsxRuntimeExports.jsx("path", { d: "M260-164v-532h-48v-52h172v-43.38h192V-748h172v52h-48v532H260Zm52-52h336v-480H312v480Zm88.16-72h51.99v-336h-51.99v336Zm107.69 0h51.99v-336h-51.99v336ZM312-696v480-480Z" }) });
+const Edit_Icon = ({ fill, width = "24px", height = "24px" }) => /* @__PURE__ */ jsxRuntimeExports.jsx("svg", { xmlns: "http://www.w3.org/2000/svg", viewBox: "0 -960 960 960", width, height, fill, children: /* @__PURE__ */ jsxRuntimeExports.jsx("path", { d: "M216-216h44.46l393.46-393.46-44.46-44.46L216-260.46V-216Zm-52 52v-118.38l534-535.54 120.31 118.77L282.38-164H164Zm580-534.77L698.77-744 744-698.77ZM631.3-631.3l-21.84-22.62 44.46 44.46-22.62-21.84Z" }) });
+const Playlist_Add_Icon = ({ fill, width = "24px", height = "24px" }) => /* @__PURE__ */ jsxRuntimeExports.jsx("svg", { xmlns: "http://www.w3.org/2000/svg", viewBox: "0 -960 960 960", width, height, fill, children: /* @__PURE__ */ jsxRuntimeExports.jsx("path", { d: "M154-406v-52h288v52H154Zm0-150v-52h432v52H154Zm0-150v-52h432v52H154Zm492 456v-156H490v-52h156v-156h52v156h156v52H698v156h-52Z" }) });
+const Search_Icon = ({ fill, width = "24px", height = "24px" }) => /* @__PURE__ */ jsxRuntimeExports.jsx("svg", { xmlns: "http://www.w3.org/2000/svg", viewBox: "0 -960 960 960", width, height, fill, children: /* @__PURE__ */ jsxRuntimeExports.jsx("path", { d: "M762.69-160.92 524.46-399.16q-30 22.77-65.79 35.27-35.79 12.5-73.87 12.5-93.58 0-159.11-65.51-65.53-65.51-65.53-159.04 0-93.52 65.51-159.1 65.51-65.57 159.04-65.57 93.52 0 159.1 65.53 65.57 65.53 65.57 159.11 0 39.23-12.88 75.02-12.89 35.8-34.89 64.64l238.23 238.23-37.15 37.16ZM384.77-403.38q72.31 0 122.46-50.16 50.16-50.15 50.16-122.46t-50.16-122.46q-50.15-50.16-122.46-50.16t-122.46 50.16Q212.15-648.31 212.15-576t50.16 122.46q50.15 50.16 122.46 50.16Z" }) });
+const Sort_By_Alpha_Icon = ({ fill, width = "24px", height = "24px" }) => /* @__PURE__ */ jsxRuntimeExports.jsx("svg", { xmlns: "http://www.w3.org/2000/svg", viewBox: "0 -960 960 960", width, height, fill, children: /* @__PURE__ */ jsxRuntimeExports.jsx("path", { d: "m108.31-296.46 143.51-367.08h60.41l142.46 367.08h-61.54l-33.14-91.23h-157.4l-35.07 91.23h-59.23Zm111.92-141.08h121.54l-59.54-159.92H279l-58.77 159.92Zm323.23 141.08v-53.77l198.08-262H552.46v-51.31h253.08v53.77l-196.85 262h198.85v51.31H543.46ZM369.23-747.85 480-858.61l110.77 110.76H369.23ZM480-101.39 369.23-212.15h221.54L480-101.39Z" }) });
+const Toggle_On_Icon = ({ fill, width = "24px", height = "24px" }) => /* @__PURE__ */ jsxRuntimeExports.jsx("svg", { xmlns: "http://www.w3.org/2000/svg", viewBox: "0 -960 960 960", width, height, fill, children: /* @__PURE__ */ jsxRuntimeExports.jsx("path", { d: "M288-260q-91.67 0-155.83-64.14Q68-388.28 68-479.91q0-91.63 64.17-155.86Q196.33-700 288-700h384q91.67 0 155.83 64.14Q892-571.72 892-480.09q0 91.63-64.17 155.86Q763.67-260 672-260H288Zm383.95-110q45.82 0 77.93-32.07Q782-434.14 782-479.95q0-45.82-32.07-77.93Q717.86-590 672.05-590q-45.82 0-77.93 32.07Q562-525.86 562-480.05q0 45.82 32.07 77.93Q626.14-370 671.95-370Z" }) });
+const Toggle_Off_Icon = ({ fill, width = "24px", height = "24px" }) => /* @__PURE__ */ jsxRuntimeExports.jsx("svg", { xmlns: "http://www.w3.org/2000/svg", viewBox: "0 -960 960 960", width, height, fill, children: /* @__PURE__ */ jsxRuntimeExports.jsx("path", { d: "M288-260q-91.67 0-155.83-64.14Q68-388.28 68-479.91q0-91.63 64.17-155.86Q196.33-700 288-700h384q91.67 0 155.83 64.14Q892-571.72 892-480.09q0 91.63-64.17 155.86Q763.67-260 672-260H288Zm-.05-110q45.82 0 77.93-32.07Q398-434.14 398-479.95q0-45.82-32.07-77.93Q333.86-590 288.05-590q-45.82 0-77.93 32.07Q178-525.86 178-480.05q0 45.82 32.07 77.93Q242.14-370 287.95-370Z" }) });
 function List({ superlist, dispatch }) {
   const add_site = (list_index2, list_name2) => {
     chrome.tabs.query({ active: true, currentWindow: true }).then((tabs) => {
@@ -7224,19 +7128,23 @@ function List({ superlist, dispatch }) {
   const check_uncheck_all = (list_index2, change_ev) => {
     dispatch({ type: "CHECK_UNCHECK_ALL", list_index: list_index2, change_ev });
   };
+  const toggle_list_mode = (list_index2) => {
+    dispatch({ type: "TOGGLE_LIST_MODE", list_index: list_index2 });
+  };
   const list_index = superlist == null ? void 0 : superlist.lists.findIndex((list) => list.active);
   if (list_index === void 0 || list_index === -1) {
     return null;
   }
-  const { list_name, sites } = superlist.lists[list_index];
-  return /* @__PURE__ */ jsxRuntimeExports.jsxs("article", { className: "list", children: [
+  const { list_name, sites, inclusive } = superlist.lists[list_index];
+  return /* @__PURE__ */ jsxRuntimeExports.jsxs("article", { className: `list ${inclusive ? "inclusive-list" : "exclusive-list"}`, children: [
     /* @__PURE__ */ jsxRuntimeExports.jsxs("div", { className: "list_controls", children: [
       /* @__PURE__ */ jsxRuntimeExports.jsx("input", { type: "checkbox", checked: all_checked(sites), onChange: (change_ev) => check_uncheck_all(list_index, change_ev) }),
-      /* @__PURE__ */ jsxRuntimeExports.jsx("button", { type: "button", title: "Add site to list", onClick: () => add_site(list_index, list_name), children: /* @__PURE__ */ jsxRuntimeExports.jsx("img", { width: "24", src: "/icons/add_16dp300w.png", alt: "" }) }),
-      /* @__PURE__ */ jsxRuntimeExports.jsx("button", { type: "button", title: "Reverse sites order", onClick: () => reverse_sites(list_index), children: /* @__PURE__ */ jsxRuntimeExports.jsx("img", { width: "24", src: "/icons/sort_by_alpha_16dp300w.png", alt: "" }) }),
+      /* @__PURE__ */ jsxRuntimeExports.jsx("button", { type: "button", title: "Add site to list", onClick: () => add_site(list_index, list_name), children: /* @__PURE__ */ jsxRuntimeExports.jsx(Add_Icon, { fill: "forestgreen" }) }),
+      /* @__PURE__ */ jsxRuntimeExports.jsx("button", { type: "button", title: "Reverse sites order", onClick: () => reverse_sites(list_index), children: /* @__PURE__ */ jsxRuntimeExports.jsx(Sort_By_Alpha_Icon, { fill: "darkslateblue" }) }),
       /* @__PURE__ */ jsxRuntimeExports.jsx("header", { children: list_name }),
-      /* @__PURE__ */ jsxRuntimeExports.jsx("button", { type: "button", title: "Edit list name", onClick: () => edit_list_name(list_index, list_name), children: /* @__PURE__ */ jsxRuntimeExports.jsx("img", { width: "24", src: "/icons/edit_16dp300w.png", alt: "" }) }),
-      /* @__PURE__ */ jsxRuntimeExports.jsx("button", { type: "button", title: "Delete list", onClick: () => delete_list(list_index, list_name), children: /* @__PURE__ */ jsxRuntimeExports.jsx("img", { width: "24", src: "/icons/delete_16dp300w.png", alt: "" }) })
+      /* @__PURE__ */ jsxRuntimeExports.jsx("button", { type: "button", title: "Edit list name", onClick: () => edit_list_name(list_index, list_name), children: /* @__PURE__ */ jsxRuntimeExports.jsx(Edit_Icon, { fill: "chocolate" }) }),
+      /* @__PURE__ */ jsxRuntimeExports.jsx("button", { type: "button", title: inclusive ? "Make list exclusive" : "Make list inclusive", onClick: () => toggle_list_mode(list_index), children: inclusive ? /* @__PURE__ */ jsxRuntimeExports.jsx(Toggle_Off_Icon, { fill: "crimson" }) : /* @__PURE__ */ jsxRuntimeExports.jsx(Toggle_On_Icon, { fill: "forestgreen" }) }),
+      /* @__PURE__ */ jsxRuntimeExports.jsx("button", { type: "button", title: "Delete list", onClick: () => delete_list(list_index, list_name), children: /* @__PURE__ */ jsxRuntimeExports.jsx(Delete_Icon, { fill: "crimson" }) })
     ] }),
     /* @__PURE__ */ jsxRuntimeExports.jsx("ol", { children: sites.map((site, site_index) => {
       const { fav_icon_URL, origin, checked } = site;
@@ -7245,10 +7153,119 @@ function List({ superlist, dispatch }) {
         /* @__PURE__ */ jsxRuntimeExports.jsx("input", { type: "checkbox", checked, onChange: () => check_uncheck(list_index, site_index) }),
         /* @__PURE__ */ jsxRuntimeExports.jsx("img", { width: "24", height: "24", src: fav_icon_URL, alt: "", className: "favicon" }),
         /* @__PURE__ */ jsxRuntimeExports.jsx("a", { href: origin, target: "_blank", children: hostname }),
-        /* @__PURE__ */ jsxRuntimeExports.jsx("button", { type: "button", title: "Delete from list", onClick: () => delete_site(list_index, site_index), children: /* @__PURE__ */ jsxRuntimeExports.jsx("img", { width: "24", src: "/icons/delete_16dp300w.png", alt: "" }) })
+        /* @__PURE__ */ jsxRuntimeExports.jsx("button", { type: "button", title: "Delete from list", onClick: () => delete_site(list_index, site_index), children: /* @__PURE__ */ jsxRuntimeExports.jsx(Delete_Icon, { fill: "crimson" }) })
       ] }, site_index);
     }) })
   ] }, list_index);
+}
+function reducer(superlist, action) {
+  const updated_superlist = { ...superlist };
+  switch (action.type) {
+    case "LOAD_LISTS": {
+      return action.superlist ?? {
+        lists: [{ list_name: "_unclassified", sites: [], inclusive: true, ascending_order: true, active: true }],
+        ascending_order: true
+      };
+    }
+    case "ADD_SITE": {
+      const { list_index, new_site } = action;
+      const updated_sublist = updated_superlist.lists[list_index];
+      updated_sublist.sites.push(new_site);
+      sort_obj_arr(
+        updated_sublist.sites,
+        "origin",
+        updated_sublist.ascending_order
+      );
+      return updated_superlist;
+    }
+    case "DELETE_SITE": {
+      const { list_index, site_index } = action;
+      updated_superlist.lists[list_index].sites.splice(site_index, 1);
+      return updated_superlist;
+    }
+    case "CREATE_LIST": {
+      const { list_name } = action;
+      updated_superlist.lists.push({ list_name, sites: [], inclusive: true, ascending_order: true });
+      sort_obj_arr(
+        updated_superlist.lists,
+        "list_name",
+        updated_superlist.ascending_order
+      );
+      return updated_superlist;
+    }
+    case "DELETE_LIST": {
+      const { list_index } = action;
+      updated_superlist.lists.splice(list_index, 1);
+      return updated_superlist;
+    }
+    case "EDIT_LIST_NAME": {
+      const { list_index, new_list_name } = action;
+      updated_superlist.lists[list_index].list_name = new_list_name;
+      sort_obj_arr(
+        updated_superlist.lists,
+        "list_name",
+        updated_superlist.ascending_order
+      );
+      return updated_superlist;
+    }
+    case "REVERSE_SUBLIST": {
+      const { list_index } = action;
+      const reversed_sublist = updated_superlist.lists[list_index];
+      reversed_sublist.ascending_order = !reversed_sublist.ascending_order;
+      reversed_sublist.sites.reverse();
+      return updated_superlist;
+    }
+    case "REVERSE_SUPERLIST": {
+      updated_superlist.ascending_order = !updated_superlist.ascending_order;
+      updated_superlist.lists.reverse();
+      return updated_superlist;
+    }
+    case "CHECK_UNCHECK": {
+      const { list_index, site_index } = action;
+      const site = updated_superlist.lists[list_index].sites[site_index];
+      site.checked = !site.checked;
+      return updated_superlist;
+    }
+    case "CHECK_UNCHECK_ALL": {
+      const { list_index, change_ev } = action;
+      const check_all = change_ev.target.checked;
+      const sites = updated_superlist.lists[list_index].sites;
+      for (const site of sites) {
+        site.checked = check_all;
+      }
+      return updated_superlist;
+    }
+    case "CHANGE_TAB": {
+      const { list_name } = action;
+      for (const list of updated_superlist.lists) {
+        list.active = list.list_name === list_name;
+      }
+      return updated_superlist;
+    }
+    case "TOGGLE_LIST_MODE": {
+      const { list_index } = action;
+      const list = updated_superlist.lists[list_index];
+      list.inclusive = !list.inclusive;
+      return updated_superlist;
+    }
+    default:
+      console.error(`Unknown action type: ${action.type}`);
+  }
+}
+function sort_obj_arr(arr, obj_key, asc = true) {
+  if (asc) {
+    arr.sort((a, b) => {
+      if (a[obj_key] < b[obj_key]) return -1;
+      if (a[obj_key] > b[obj_key]) return 1;
+      return 0;
+    });
+  } else {
+    arr.sort((a, b) => {
+      if (a[obj_key] < b[obj_key]) return 1;
+      if (a[obj_key] > b[obj_key]) return -1;
+      return 0;
+    });
+  }
 }
 function ListContainer({ setListsPage }) {
   const create_list = () => {
@@ -7278,8 +7295,12 @@ function ListContainer({ setListsPage }) {
       chrome.search.query({ text: search_str });
       return;
     } else {
-      const ticked_sites = superlist.lists[list_index].sites.filter((site) => site.checked).map((site) => `site:${new URL(site.origin).hostname}`).join(" | ");
-      chrome.search.query({ text: `${search_str} (${ticked_sites})` });
+      const { inclusive } = superlist.lists[list_index];
+      const ticked_sites = superlist.lists[list_index].sites.filter((site) => site.checked).map((site) => {
+        const { hostname } = new URL(site.origin);
+        return inclusive ? `site:${hostname}` : `-site:${hostname}`;
+      }).join(inclusive ? " | " : " ");
+      chrome.search.query({ text: search_str.concat(inclusive ? ` (${ticked_sites})` : ` ${ticked_sites}`) });
       return;
     }
   };
@@ -7303,17 +7324,15 @@ function ListContainer({ setListsPage }) {
         search_in_list();
       }
     } }),
-    /* @__PURE__ */ jsxRuntimeExports.jsx("button", { children: /* @__PURE__ */ jsxRuntimeExports.jsx("img", { src: "/icons/toggle_off.svg", alt: "" }) }),
-    /* @__PURE__ */ jsxRuntimeExports.jsx("button", { children: /* @__PURE__ */ jsxRuntimeExports.jsx("svg", { xmlns: "http://www.w3.org/2000/svg", height: "20px", viewBox: "0 -960 960 960", width: "20px", fill: "#A96424", children: /* @__PURE__ */ jsxRuntimeExports.jsx("path", { d: "M288-260q-91.67 0-155.83-64.14Q68-388.28 68-479.91q0-91.63 64.17-155.86Q196.33-700 288-700h384q91.67 0 155.83 64.14Q892-571.72 892-480.09q0 91.63-64.17 155.86Q763.67-260 672-260H288Zm0-52h384q70 0 119-49t49-119q0-70-49-119t-119-49H288q-70 0-119 49t-49 119q0 70 49 119t119 49Zm-.05-58q45.82 0 77.93-32.07Q398-434.14 398-479.95q0-45.82-32.07-77.93Q333.86-590 288.05-590q-45.82 0-77.93 32.07Q178-525.86 178-480.05q0 45.82 32.07 77.93Q242.14-370 287.95-370ZM480-480Z" }) }) }),
-    /* @__PURE__ */ jsxRuntimeExports.jsx("button", { type: "button", title: "Search in marked sites", onClick: search_in_list, children: /* @__PURE__ */ jsxRuntimeExports.jsx("img", { width: "24", src: "/icons/search_16dp300w.png", alt: "" }) }),
-    /* @__PURE__ */ jsxRuntimeExports.jsx("button", { type: "button", title: "Create new list", onClick: create_list, children: /* @__PURE__ */ jsxRuntimeExports.jsx("img", { width: "24", src: "/icons/playlist_add_16dp300w.png", alt: "" }) }),
-    /* @__PURE__ */ jsxRuntimeExports.jsx("button", { type: "button", title: "Reverse tags", onClick: reverse_superlist, children: /* @__PURE__ */ jsxRuntimeExports.jsx("img", { width: "24", src: "/icons/sort_by_alpha_16dp300w.png", alt: "" }) }),
+    /* @__PURE__ */ jsxRuntimeExports.jsx("button", { type: "button", title: "Search in marked sites", onClick: search_in_list, children: /* @__PURE__ */ jsxRuntimeExports.jsx(Search_Icon, { fill: "dodgerblue" }) }),
+    /* @__PURE__ */ jsxRuntimeExports.jsx("button", { type: "button", title: "Create new list", onClick: create_list, children: /* @__PURE__ */ jsxRuntimeExports.jsx(Playlist_Add_Icon, { fill: "forestgreen" }) }),
+    /* @__PURE__ */ jsxRuntimeExports.jsx("button", { type: "button", title: "Reverse tags", onClick: reverse_superlist, children: /* @__PURE__ */ jsxRuntimeExports.jsx(Sort_By_Alpha_Icon, { fill: "darkslateblue" }) }),
     /* @__PURE__ */ jsxRuntimeExports.jsx("button", { onClick: () => setListsPage((prev) => !prev), children: "TIPS" }),
-    /* @__PURE__ */ jsxRuntimeExports.jsx("nav", { className: "tabs", children: superlist == null ? void 0 : superlist.lists.map(({ list_name, active }, list_index) => {
+    /* @__PURE__ */ jsxRuntimeExports.jsx("nav", { className: "tabs", children: superlist == null ? void 0 : superlist.lists.map(({ list_name, active, inclusive }, list_index) => {
       const id = `tab_${list_index}`;
       return /* @__PURE__ */ jsxRuntimeExports.jsxs(jsxRuntimeExports.Fragment, { children: [
         /* @__PURE__ */ jsxRuntimeExports.jsx("input", { type: "radio", hidden: true, id, name: "active_tab", value: list_name, onChange: change_tab, checked: active }),
-        /* @__PURE__ */ jsxRuntimeExports.jsx("label", { htmlFor: id, children: list_name })
+        /* @__PURE__ */ jsxRuntimeExports.jsx("label", { htmlFor: id, className: inclusive ? "inclusive-tab" : "exclusive-tab", children: list_name })
       ] });
     }) }),
     /* @__PURE__ */ jsxRuntimeExports.jsx(List, { superlist, dispatch })
@@ -7357,4 +7376,4 @@ function App() {
   const [listsPage, setListsPage] = reactExports.useState(true);
   return listsPage ? /* @__PURE__ */ jsxRuntimeExports.jsx(ListContainer, { setListsPage }) : /* @__PURE__ */ jsxRuntimeExports.jsx(Tips, {});
 }
-//# sourceMappingURL=index-DrAvFldG.js.map
+//# sourceMappingURL=index-Ca8gKdrQ.js.map

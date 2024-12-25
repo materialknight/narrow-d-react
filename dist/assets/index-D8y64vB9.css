@@ -29,24 +29,38 @@
       height: 26px;
       padding-left: 6px;
       padding-right: 6px;
-
-      border: 1px solid black;
       background-color: transparent;
-      color: crimson;
+      border-radius: 5px;
    }
 
-   input:checked+label {
-      border: 2px solid blue;
-   }
+   /* input:checked+label {
+      background-color: aquamarine;
+   } */
+}
+
+.inclusive-tab {
+   border: 2px solid var(--inclusive-color);
+   color: var(--inclusive-color);
+}
+
+input:checked+.inclusive-tab {
+   background-color: aquamarine;
+   color: black;
+}
+
+.exclusive-tab {
+   border: 2px solid var(--exclusive-color);
+   color: var(--exclusive-color);
+}
+
+input:checked+.exclusive-tab {
+   background-color: lightpink;
+   color: black;
 }
 
 .list {
 
-   /* list-style-type: none;
-   padding: 0;
-   margin: 0; */
    width: 100%;
-   border: 1px solid green;
 
    [type=checkbox] {
       align-self: center;
@@ -54,7 +68,6 @@
       margin: 0 0 0 0.5rem;
       min-width: 16px;
       height: 16px;
-      accent-color: green;
    }
 
    .favicon {
@@ -62,10 +75,6 @@
       margin-left: var(--spacing);
       margin-right: var(--spacing);
    }
-
-   /* .move_btn {
-      border-left: 1px solid green;
-   } */
 
    a {
       border-left: 1px solid green;
@@ -100,12 +109,38 @@
    li {
       display: flex;
       height: var(--row-height);
-      color: green;
+      /* color: green; */
       border-bottom: 1px solid green;
    }
 
    li:last-child {
       border: none;
+   }
+}
+
+.inclusive-list {
+   border-top: 2px solid var(--inclusive-color);
+   border-bottom: 2px solid var(--inclusive-color);
+
+   [type=checkbox] {
+      accent-color: var(--inclusive-color);
+   }
+
+   a {
+      color: var(--inclusive-color);
+   }
+}
+
+.exclusive-list {
+   border-top: 2px solid var(--exclusive-color);
+   border-bottom: 2px solid var(--exclusive-color);
+
+   [type=checkbox] {
+      accent-color: var(--exclusive-color);
+   }
+
+   a {
+      color: var(--exclusive-color);
    }
 }
 
@@ -127,6 +162,8 @@ body {
    --fonts-size: 15px;
    --row-height: 1.9rem;
    --spacing: 0.5rem;
+   --inclusive-color: forestgreen;
+   --exclusive-color: crimson;
 
    padding: var(--spacing);
 }
@@ -137,7 +174,7 @@ a {
    width: 100%;
 
    text-decoration: none;
-   color: green;
+   /* color: var(--inclusive-color); */
 }
 
 a:hover,

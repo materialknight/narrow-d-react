@@ -5,7 +5,8 @@
    "description": "Narrow down your search results to the sites you want",
    "permissions": [
       "search",
-      "storage"
+      "storage",
+      "contextMenus"
    ],
    "host_permissions": [
       "*://*/*"

@@ -45,11 +45,7 @@ export default function reducer(superlist, action) {
       }
       case "DELETE_LIST": {
          const { list_index } = action
-
          updated_superlist.lists.splice(list_index, 1)
-
-         //TODO: HOW TO CHANGE THE ACTIVE LIST.
-         console.log(updated_superlist)
 
          return updated_superlist
       }
@@ -108,12 +104,19 @@ export default function reducer(superlist, action) {
 
          return updated_superlist
       }
+      case "TOGGLE_LIST_MODE": {
+         const { list_index } = action
+         const list = updated_superlist.lists[list_index]
+         list.inclusive = !list.inclusive
+
+         return updated_superlist
+      }
 
       default: console.error(`Unknown action type: ${action.type}`)
    }
 }
 
-export function sort_obj_arr(arr, obj_key, asc = true) {
+function sort_obj_arr(arr, obj_key, asc = true) {
    if (asc)
    {
       arr.sort((a, b) => {

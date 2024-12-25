@@ -1,4 +1,4 @@
-import { sort_obj_arr } from "./reducer"
+import { Add_Icon, Delete_Icon, Edit_Icon, Sort_By_Alpha_Icon, Toggle_On_Icon, Toggle_Off_Icon } from "./style/icons.jsx"
 
 export default function List({ superlist, dispatch }) {
 
@@ -101,6 +101,10 @@ export default function List({ superlist, dispatch }) {
       dispatch({ type: "CHECK_UNCHECK_ALL", list_index, change_ev })
    }
 
+   const toggle_list_mode = list_index => {
+      dispatch({ type: "TOGGLE_LIST_MODE", list_index })
+   }
+
    const list_index = superlist?.lists.findIndex(list => list.active)
    // If list_index is undefined, it's the 1st render and the superlist has not loaded yet.
    // If list_index is -1, there is no active list because the last one was deleted.
@@ -110,24 +114,27 @@ export default function List({ superlist, dispatch }) {
       return null
    }
 
-   const { list_name, sites } = superlist.lists[list_index]
+   const { list_name, sites, inclusive } = superlist.lists[list_index]
 
    return (
-      <article className="list" key={list_index}>
+      <article className={`list ${inclusive ? "inclusive-list" : "exclusive-list"}`} key={list_index} >
          <div className="list_controls">
             <input type="checkbox" checked={all_checked(sites)} onChange={change_ev => check_uncheck_all(list_index, change_ev)} />
             <button type="button" title="Add site to list" onClick={() => add_site(list_index, list_name)}>
-               <img width="24" src="/icons/add_16dp300w.png" alt="" />
+               <Add_Icon fill="forestgreen" />
             </button>
             <button type="button" title="Reverse sites order" onClick={() => reverse_sites(list_index)}>
-               <img width="24" src="/icons/sort_by_alpha_16dp300w.png" alt="" />
+               <Sort_By_Alpha_Icon fill="darkslateblue" />
             </button>
             <header>{list_name}</header>
             <button type="button" title="Edit list name" onClick={() => edit_list_name(list_index, list_name)}>
-               <img width="24" src="/icons/edit_16dp300w.png" alt="" />
+               <Edit_Icon fill="chocolate" />
+            </button>
+            <button type="button" title={inclusive ? "Make list exclusive" : "Make list inclusive"} onClick={() => toggle_list_mode(list_index)}>
+               {inclusive ? <Toggle_Off_Icon fill="crimson" /> : <Toggle_On_Icon fill="forestgreen" />}
             </button>
             <button type="button" title="Delete list" onClick={() => delete_list(list_index, list_name)}>
-               <img width="24" src="/icons/delete_16dp300w.png" alt="" />
+               <Delete_Icon fill="crimson" />
             </button>
          </div>
 
@@ -142,14 +149,11 @@ export default function List({ superlist, dispatch }) {
                   <img width="24" height="24" src={fav_icon_URL} alt="" className="favicon" />
                   <a href={origin} target="_blank">{hostname}</a>
                   <button type="button" title="Delete from list" onClick={() => delete_site(list_index, site_index)}>
-                     <img width="24" src="/icons/delete_16dp300w.png" alt="" />
+                     <Delete_Icon fill="crimson" />
                   </button>
-                  {/* <button type="button" title="Move" className="move_btn">
-                              <img width="24" src="/icons/move_item_16dp300w.png" alt="" />
-                           </button> */}
                </li>
             )
          })}</ol>
-      </article>
+      </article >
    )
 }

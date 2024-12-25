@@ -18,6 +18,8 @@ body {
    --fonts-size: 15px;
    --row-height: 1.9rem;
    --spacing: 0.5rem;
+   --inclusive-color: forestgreen;
+   --exclusive-color: crimson;
 
    padding: var(--spacing);
 }
@@ -28,7 +30,7 @@ a {
    width: 100%;
 
    text-decoration: none;
-   color: green;
+   /* color: var(--inclusive-color); */
 }
 
 a:hover,
