@@ -7161,11 +7161,8 @@ function List({ superlist, dispatch }) {
 function reducer(superlist, action) {
   const updated_superlist = { ...superlist };
   switch (action.type) {
-    case "LOAD_LISTS": {
-      return action.superlist ?? {
-        lists: [{ list_name: "_unclassified", sites: [], inclusive: true, ascending_order: true, active: true }],
-        ascending_order: true
-      };
+    case "LOAD_SUPERLIST": {
+      return action.superlist;
     }
     case "ADD_SITE": {
       const { list_index, new_site } = action;
@@ -7185,7 +7182,11 @@ function reducer(superlist, action) {
     }
     case "CREATE_LIST": {
       const { list_name } = action;
-      updated_superlist.lists.push({ list_name, sites: [], inclusive: true, ascending_order: true });
+      const prev_active_list = updated_superlist.lists.find((list) => list.active);
+      if (prev_active_list) {
+        prev_active_list.active = false;
+      }
+      updated_superlist.lists.push({ list_name, sites: [], inclusive: true, ascending_order: true, active: true });
       sort_obj_arr(
         updated_superlist.lists,
         "list_name",
@@ -7308,12 +7309,22 @@ function ListContainer({ setListsPage }) {
   const search_input = reactExports.useRef();
   const superlist_just_loaded = reactExports.useRef(true);
   reactExports.useEffect(() => {
+    var _a;
     if (superlist === null) {
-      chrome.storage.local.get("superlist").then(({ superlist: superlist2 }) => {
-        dispatch({ type: "LOAD_LISTS", superlist: superlist2 });
+      chrome.storage.local.get({
+        "superlist": {
+          lists: [{ list_name: "_unclassified", sites: [], inclusive: true, ascending_order: true, active: true }],
+          ascending_order: true
+        }
+      }).then(({ superlist: superlist2 }) => {
+        dispatch({ type: "LOAD_SUPERLIST", superlist: superlist2 });
       });
     } else if (superlist_just_loaded.current) {
       superlist_just_loaded.current = false;
+      const active_list = (_a = superlist.lists.find((list) => list.active)) == null ? void 0 : _a.sites.filter((site) => site.checked);
+      if (active_list) {
+        chrome.runtime.sendMessage({ type: "UPDATE_CONTEXT_MENU", active_list });
+      }
     } else {
       chrome.storage.local.set({ superlist });
     }
@@ -7376,4 +7387,4 @@ function App() {
   const [listsPage, setListsPage] = reactExports.useState(true);
   return listsPage ? /* @__PURE__ */ jsxRuntimeExports.jsx(ListContainer, { setListsPage }) : /* @__PURE__ */ jsxRuntimeExports.jsx(Tips, {});
 }
-//# sourceMappingURL=index-Ca8gKdrQ.js.map
+//# sourceMappingURL=index-DLWeN360.js.map

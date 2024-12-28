@@ -28,7 +28,7 @@ export default function ListContainer({ setListsPage }) {
       dispatch({ type: "REVERSE_SUPERLIST" })
    }
 
-   const change_tab = (change_ev) => {
+   const change_tab = change_ev => {
       const list_name = change_ev.target.value
       dispatch({ type: "CHANGE_TAB", list_name })
    }
@@ -69,20 +69,25 @@ export default function ListContainer({ setListsPage }) {
    useEffect(() => {
       if (superlist === null)
       {
-         chrome.storage.local.get("superlist").then(({ superlist }) => {
-            dispatch({ type: "LOAD_LISTS", superlist })
+         chrome.storage.local.get({
+            "superlist": {
+               lists: [{ list_name: "_unclassified", sites: [], inclusive: true, ascending_order: true, active: true }],
+               ascending_order: true
+            }
+         }).then(({ superlist }) => {
+            dispatch({ type: "LOAD_SUPERLIST", superlist })
          })
       }
       else if (superlist_just_loaded.current)
       {
          superlist_just_loaded.current = false
 
-         // const active_list = superlist?.lists.find(list => list.active)?.sites.filter(site => site.checked)
-         // if (!active_list)
-         // {
-         //    return null
-         // }
-         // chrome.runtime.sendMessage({ type: "UPDATE_CONTEXT_MENU", active_list })
+         const active_list = superlist.lists.find(list => list.active)?.sites.filter(site => site.checked)
+
+         if (active_list)
+         {
+            chrome.runtime.sendMessage({ type: "UPDATE_CONTEXT_MENU", active_list })
+         }
       }
       else
       {

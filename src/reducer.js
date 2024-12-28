@@ -1,15 +1,10 @@
 export default function reducer(superlist, action) {
-
    const updated_superlist = { ...superlist }
 
    switch (action.type)
    {
-      case "LOAD_LISTS": {
-
-         return action.superlist ?? {
-            lists: [{ list_name: "_unclassified", sites: [], inclusive: true, ascending_order: true, active: true }],
-            ascending_order: true
-         }
+      case "LOAD_SUPERLIST": {
+         return action.superlist
       }
       case "ADD_SITE": {
          const { list_index, new_site } = action
@@ -32,8 +27,14 @@ export default function reducer(superlist, action) {
 
       case "CREATE_LIST": {
          const { list_name } = action
+         const prev_active_list = updated_superlist.lists.find(list => list.active)
 
-         updated_superlist.lists.push({ list_name, sites: [], inclusive: true, ascending_order: true })
+         if (prev_active_list)
+         {
+            prev_active_list.active = false
+         }
+
+         updated_superlist.lists.push({ list_name, sites: [], inclusive: true, ascending_order: true, active: true })
 
          sort_obj_arr(
             updated_superlist.lists,
@@ -111,7 +112,6 @@ export default function reducer(superlist, action) {
 
          return updated_superlist
       }
-
       default: console.error(`Unknown action type: ${action.type}`)
    }
 }
