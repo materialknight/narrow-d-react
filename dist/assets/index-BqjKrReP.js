@@ -7305,11 +7305,20 @@ function ListContainer({ setListsPage }) {
       return;
     }
   };
+  const update_context_menu = () => {
+    const active_list = superlist.lists.find((list) => list.active);
+    if (active_list) {
+      chrome.runtime.sendMessage({
+        type: "UPDATE_CONTEXT_MENU",
+        checked_sites: active_list.sites.filter((site) => site.checked),
+        inclusive: active_list.inclusive
+      });
+    }
+  };
   const [superlist, dispatch] = reactExports.useReducer(reducer, null);
   const search_input = reactExports.useRef();
   const superlist_just_loaded = reactExports.useRef(true);
   reactExports.useEffect(() => {
-    var _a;
     if (superlist === null) {
       chrome.storage.local.get({
         "superlist": {
@@ -7319,14 +7328,17 @@ function ListContainer({ setListsPage }) {
       }).then(({ superlist: superlist2 }) => {
         dispatch({ type: "LOAD_SUPERLIST", superlist: superlist2 });
       });
+      chrome.tabs.query({ active: true, currentWindow: true }).then((tabs) => {
+        chrome.tabs.sendMessage(tabs[0].id, "GET_SELECTED_TEXT").then((selected_text) => {
+          search_input.current.defaultValue = selected_text;
+          search_input.current.select();
+        });
+      });
     } else if (superlist_just_loaded.current) {
       superlist_just_loaded.current = false;
-      const active_list = (_a = superlist.lists.find((list) => list.active)) == null ? void 0 : _a.sites.filter((site) => site.checked);
-      if (active_list) {
-        chrome.runtime.sendMessage({ type: "UPDATE_CONTEXT_MENU", active_list });
-      }
+      update_context_menu();
     } else {
-      chrome.storage.local.set({ superlist });
+      chrome.storage.local.set({ superlist }).then(update_context_menu);
     }
   }, [superlist]);
   return /* @__PURE__ */ jsxRuntimeExports.jsxs("article", { className: "list_container", children: [
@@ -7387,4 +7399,4 @@ function App() {
   const [listsPage, setListsPage] = reactExports.useState(true);
   return listsPage ? /* @__PURE__ */ jsxRuntimeExports.jsx(ListContainer, { setListsPage }) : /* @__PURE__ */ jsxRuntimeExports.jsx(Tips, {});
 }
-//# sourceMappingURL=index-DLWeN360.js.map
+//# sourceMappingURL=index-BqjKrReP.js.map

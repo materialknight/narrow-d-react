@@ -62,6 +62,19 @@ export default function ListContainer({ setListsPage }) {
       }
    }
 
+   const update_context_menu = () => {
+      const active_list = superlist.lists.find(list => list.active)
+
+      if (active_list)
+      {
+         chrome.runtime.sendMessage({
+            type: "UPDATE_CONTEXT_MENU",
+            checked_sites: active_list.sites.filter(site => site.checked),
+            inclusive: active_list.inclusive
+         })
+      }
+   }
+
    const [superlist, dispatch] = useReducer(reducer, null)
    const search_input = useRef()
    const superlist_just_loaded = useRef(true)
@@ -77,21 +90,24 @@ export default function ListContainer({ setListsPage }) {
          }).then(({ superlist }) => {
             dispatch({ type: "LOAD_SUPERLIST", superlist })
          })
+
+         chrome.tabs.query({ active: true, currentWindow: true })
+            .then(tabs => {
+               chrome.tabs.sendMessage(tabs[0].id, "GET_SELECTED_TEXT")
+                  .then(selected_text => {
+                     search_input.current.defaultValue = selected_text
+                     search_input.current.select()
+                  })
+            })
       }
       else if (superlist_just_loaded.current)
       {
          superlist_just_loaded.current = false
-
-         const active_list = superlist.lists.find(list => list.active)?.sites.filter(site => site.checked)
-
-         if (active_list)
-         {
-            chrome.runtime.sendMessage({ type: "UPDATE_CONTEXT_MENU", active_list })
-         }
+         update_context_menu()
       }
       else
       {
-         chrome.storage.local.set({ superlist })
+         chrome.storage.local.set({ superlist }).then(update_context_menu)
       }
    }, [superlist])
 

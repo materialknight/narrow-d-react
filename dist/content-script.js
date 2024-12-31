@@ -68,17 +68,29 @@ for (const input of text_inputs)
 
 chrome.runtime.onMessage.addListener((message, sender, sendResponse) => {
 
-   if (text_inputs.length === 0)
+   switch (message)
    {
-      alert("Narrow D could not find a text input on this page.")
-      return
+      case "go_to_page_search_bar": {
+         if (text_inputs.length === 0)
+         {
+            alert("Narrow D could not find a text input on this page.")
+            return
+         }
+
+         const focused_input = text_inputs[text_input_index]
+
+         focused_input.classList.add("focused_input")
+         focused_input.focus()
+         focused_input.select()
+
+         text_input_index = text_input_index === text_inputs.length - 1 ? 0 : text_input_index + 1
+         break
+      }
+      case "GET_SELECTED_TEXT": {
+         sendResponse(window.getSelection().toString())
+         break
+      }
+      default: console.error(`Unexpected message: ${message}`)
    }
 
-   const focused_input = text_inputs[text_input_index]
-
-   focused_input.classList.add("focused_input")
-   focused_input.focus()
-   focused_input.select()
-
-   text_input_index = text_input_index === text_inputs.length - 1 ? 0 : text_input_index + 1
 })
