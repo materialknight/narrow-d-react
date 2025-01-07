@@ -1,6 +1,6 @@
 @import "./listContainer.css";
 @import "./lists.css";
-/* @import "./Tips.css"; */
+@import "./tips.css";
 
 body {
    font-family: var(--fonts);
@@ -12,7 +12,7 @@ body {
 
    color-scheme: light dark;
    margin: 0;
-   min-width: 350px;
+   min-width: 400px;
 
    --fonts: system-ui, Arial, Helvetica, sans-serif;
    --fonts-size: 15px;
@@ -30,7 +30,6 @@ a {
    width: 100%;
 
    text-decoration: none;
-   /* color: var(--inclusive-color); */
 }
 
 a:hover,
@@ -41,9 +40,10 @@ label:hover {
 }
 
 button {
+   font-family: var(--fonts);
+
    display: inline-flex;
    align-items: center;
-   /* justify-content: center; */
 
    border: 1px solid black;
    background-color: transparent;

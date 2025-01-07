@@ -63,9 +63,8 @@ function focus_search_bar(command, tab) {
    {
       chrome.tabs
          .sendMessage(tab.id, command)
-         .catch(error => {
-            console.warn("You can't go to the search bar of the browser's settings because that page can't have a content script. Here is the error message, in case you want to see it:")
-            console.error(error)
+         .catch(() => {
+            console.log(`NarrowD tried to send the message '${command}' to this tab's content script, but NarrowD could not inject its content script into this tab in the first place because this tab's URL is not of scheme 'http' or 'https', which are the only ones that can have a content script injected into them.`)
          })
    }
 }
@@ -95,10 +94,6 @@ function set_action_icon(tabId, changeInfo, tab) {
          chrome.action.setIcon({ path: "/icons/liked_16.png", tabId })
       }
    })
-}
-
-function update_context_menu() {
-
 }
 
 function respond(message, sender, sendResponse) {

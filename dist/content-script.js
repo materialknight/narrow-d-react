@@ -92,5 +92,4 @@ chrome.runtime.onMessage.addListener((message, sender, sendResponse) => {
       }
       default: console.error(`Unexpected message: ${message}`)
    }
-
 })

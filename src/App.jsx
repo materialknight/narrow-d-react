@@ -15,5 +15,5 @@ function App() {
 
    return listsPage
       ? <ListContainer setListsPage={setListsPage} />
-      : <Tips />
+      : <Tips setListsPage={setListsPage} />
 }

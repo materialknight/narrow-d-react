@@ -42,24 +42,31 @@ export default function ListContainer({ setListsPage }) {
       // In either case, there's nothing to add to the search string, so I search and return.
       if (list_index === undefined || list_index === -1)
       {
-         chrome.search.query({ text: search_str })
+         chrome.search.query({ text: search_str, disposition: "NEW_TAB" })
          return
       }
-      else
+
+      let ticked_sites = superlist.lists[list_index].sites.filter(site => site.checked)
+
+      if (ticked_sites.length === 0)
       {
-         const { inclusive } = superlist.lists[list_index]
-
-         const ticked_sites = superlist.lists[list_index].sites
-            .filter(site => site.checked)
-            .map(site => {
-               const { hostname } = new URL(site.origin)
-               return inclusive ? `site:${hostname}` : `-site:${hostname}`
-            })
-            .join(inclusive ? " | " : " ")
-
-         chrome.search.query({ text: search_str.concat(inclusive ? ` (${ticked_sites})` : ` ${ticked_sites}`) })
+         chrome.search.query({ text: search_str, disposition: "NEW_TAB" })
          return
       }
+
+      const { inclusive } = superlist.lists[list_index]
+
+      ticked_sites = ticked_sites.map(site => {
+         const { hostname } = new URL(site.origin)
+         return inclusive ? `site:${hostname}` : `-site:${hostname}`
+      })
+         .join(inclusive ? " | " : " ")
+
+      chrome.search.query({
+         text: search_str.concat(inclusive ? ` (${ticked_sites})` : ` ${ticked_sites}`),
+         disposition: "NEW_TAB"
+      })
+      return
    }
 
    const update_context_menu = () => {
@@ -93,10 +100,14 @@ export default function ListContainer({ setListsPage }) {
 
          chrome.tabs.query({ active: true, currentWindow: true })
             .then(tabs => {
-               chrome.tabs.sendMessage(tabs[0].id, "GET_SELECTED_TEXT")
+               chrome.tabs
+                  .sendMessage(tabs[0].id, "GET_SELECTED_TEXT")
                   .then(selected_text => {
                      search_input.current.defaultValue = selected_text
                      search_input.current.select()
+                  })
+                  .catch(() => {
+                     console.log("NarrowD tried to send the message 'GET_SELECTED_TEXT' to this tab's content script, but NarrowD could not inject its content script into this tab in the first place because this tab's URL is not of scheme 'http' or 'https', which are the only ones that can have a content script injected into them.")
                   })
             })
       }
@@ -128,7 +139,7 @@ export default function ListContainer({ setListsPage }) {
          <button type="button" title="Reverse tags" onClick={reverse_superlist}>
             <Sort_By_Alpha_Icon fill="darkslateblue" />
          </button>
-         <button onClick={() => setListsPage(prev => !prev)} >TIPS</button>
+         <button type="button" onClick={() => setListsPage(false)} >TIPS</button>
          <nav className="tabs">{superlist?.lists.map(({ list_name, active, inclusive }, list_index) => {
 
             const id = `tab_${list_index}`

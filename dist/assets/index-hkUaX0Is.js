@@ -7293,17 +7293,24 @@ function ListContainer({ setListsPage }) {
     const search_str = `"${search_input.current.value}"`;
     const list_index = superlist == null ? void 0 : superlist.lists.findIndex((list) => list.active);
     if (list_index === void 0 || list_index === -1) {
-      chrome.search.query({ text: search_str });
-      return;
-    } else {
-      const { inclusive } = superlist.lists[list_index];
-      const ticked_sites = superlist.lists[list_index].sites.filter((site) => site.checked).map((site) => {
-        const { hostname } = new URL(site.origin);
-        return inclusive ? `site:${hostname}` : `-site:${hostname}`;
-      }).join(inclusive ? " | " : " ");
-      chrome.search.query({ text: search_str.concat(inclusive ? ` (${ticked_sites})` : ` ${ticked_sites}`) });
+      chrome.search.query({ text: search_str, disposition: "NEW_TAB" });
       return;
     }
+    let ticked_sites = superlist.lists[list_index].sites.filter((site) => site.checked);
+    if (ticked_sites.length === 0) {
+      chrome.search.query({ text: search_str, disposition: "NEW_TAB" });
+      return;
+    }
+    const { inclusive } = superlist.lists[list_index];
+    ticked_sites = ticked_sites.map((site) => {
+      const { hostname } = new URL(site.origin);
+      return inclusive ? `site:${hostname}` : `-site:${hostname}`;
+    }).join(inclusive ? " | " : " ");
+    chrome.search.query({
+      text: search_str.concat(inclusive ? ` (${ticked_sites})` : ` ${ticked_sites}`),
+      disposition: "NEW_TAB"
+    });
+    return;
   };
   const update_context_menu = () => {
     const active_list = superlist.lists.find((list) => list.active);
@@ -7332,6 +7339,8 @@ function ListContainer({ setListsPage }) {
         chrome.tabs.sendMessage(tabs[0].id, "GET_SELECTED_TEXT").then((selected_text) => {
           search_input.current.defaultValue = selected_text;
           search_input.current.select();
+        }).catch(() => {
+          console.log("NarrowD tried to send the message 'GET_SELECTED_TEXT' to this tab's content script, but NarrowD could not inject its content script into this tab in the first place because this tab's URL is not of scheme 'http' or 'https', which are the only ones that can have a content script injected into them.");
         });
       });
     } else if (superlist_just_loaded.current) {
@@ -7350,7 +7359,7 @@ function ListContainer({ setListsPage }) {
     /* @__PURE__ */ jsxRuntimeExports.jsx("button", { type: "button", title: "Search in marked sites", onClick: search_in_list, children: /* @__PURE__ */ jsxRuntimeExports.jsx(Search_Icon, { fill: "dodgerblue" }) }),
     /* @__PURE__ */ jsxRuntimeExports.jsx("button", { type: "button", title: "Create new list", onClick: create_list, children: /* @__PURE__ */ jsxRuntimeExports.jsx(Playlist_Add_Icon, { fill: "forestgreen" }) }),
     /* @__PURE__ */ jsxRuntimeExports.jsx("button", { type: "button", title: "Reverse tags", onClick: reverse_superlist, children: /* @__PURE__ */ jsxRuntimeExports.jsx(Sort_By_Alpha_Icon, { fill: "darkslateblue" }) }),
-    /* @__PURE__ */ jsxRuntimeExports.jsx("button", { onClick: () => setListsPage((prev) => !prev), children: "TIPS" }),
+    /* @__PURE__ */ jsxRuntimeExports.jsx("button", { type: "button", onClick: () => setListsPage(false), children: "TIPS" }),
     /* @__PURE__ */ jsxRuntimeExports.jsx("nav", { className: "tabs", children: superlist == null ? void 0 : superlist.lists.map(({ list_name, active, inclusive }, list_index) => {
       const id = `tab_${list_index}`;
       return /* @__PURE__ */ jsxRuntimeExports.jsxs(jsxRuntimeExports.Fragment, { children: [
@@ -7361,35 +7370,40 @@ function ListContainer({ setListsPage }) {
     /* @__PURE__ */ jsxRuntimeExports.jsx(List, { superlist, dispatch })
   ] });
 }
-function Tips() {
-  return /* @__PURE__ */ jsxRuntimeExports.jsxs("section", { children: [
-    /* @__PURE__ */ jsxRuntimeExports.jsx("a", { href: "index.html", children: "Go Back" }),
+function Tips({ setListsPage }) {
+  const qr_code = reactExports.useRef();
+  const timeout = reactExports.useRef(null);
+  const [msgHidden, setMsgHidden] = reactExports.useState(true);
+  const copy_qr_code = () => {
+    navigator.clipboard.writeText(qr_code.current.innerText);
+    setMsgHidden(false);
+    if (timeout.current) {
+      clearTimeout(timeout.current);
+    }
+    timeout.current = setTimeout(() => {
+      setMsgHidden(true);
+    }, 1500);
+  };
+  return /* @__PURE__ */ jsxRuntimeExports.jsxs("section", { className: "tips", children: [
+    /* @__PURE__ */ jsxRuntimeExports.jsx("button", { type: "button", onClick: () => setListsPage(true), children: "Go Back" }),
     /* @__PURE__ */ jsxRuntimeExports.jsxs("ol", { children: [
-      /* @__PURE__ */ jsxRuntimeExports.jsx("li", { children: 'If you want NarrowD to use a different search engine, change your browser"s default search engine.' }),
-      /* @__PURE__ */ jsxRuntimeExports.jsx("li", { children: "If your search throws no results, try removing the quotation marks (in the results page)." }),
+      /* @__PURE__ */ jsxRuntimeExports.jsx("li", { children: "If you want NarrowD to use a different search engine, change your browser's search engine (in your browser settings)." }),
+      /* @__PURE__ */ jsxRuntimeExports.jsx("li", { children: "If your search throws no results, try removing the quotation marks from the text generated by NarrowD (in the results page)." }),
       /* @__PURE__ */ jsxRuntimeExports.jsxs("li", { children: [
-        /* @__PURE__ */ jsxRuntimeExports.jsx("kbd", { children: "Ctrl + Shift + Space" }),
-        " opens NarrowD."
+        /* @__PURE__ */ jsxRuntimeExports.jsx("kbd", { children: "Ctrl+Shift+Space" }),
+        " opens NarrowD's popup."
       ] }),
       /* @__PURE__ */ jsxRuntimeExports.jsxs("li", { children: [
-        /* @__PURE__ */ jsxRuntimeExports.jsx("kbd", { children: "Ctrl + Space" }),
-        ' focuses the current site"s search bar, if any (it doesn"t work on every site, though) and gives it an orange outline while focused (this is disabled by default in Google Chrome, but you can enable it in "Manage extensions" > "Keyboard shortcuts").'
+        /* @__PURE__ */ jsxRuntimeExports.jsx("kbd", { children: "Ctrl+Space" }),
+        " focuses the current site's search bar (if any) so you can type in it right away (it doesn't work on every site, though)."
       ] }),
-      /* @__PURE__ */ jsxRuntimeExports.jsx("li", { children: 'If you search too many sites, the search engine will inform you that it ignored part of the generated string. If you don"t want that, uncheck some sites that produced poor results before repeating the search, so that no part of that string is ignored.' })
+      /* @__PURE__ */ jsxRuntimeExports.jsx("li", { children: 'Some search engines have a 32-word limit. A "word" is any character sequence delimited by whitespace, for example: "this.counts-as-one.word", so the number of words in your query plus the number of check-marked sites of your active list should not exceed 32, or the search engine might ignore some of the query.' })
     ] }),
     /* @__PURE__ */ jsxRuntimeExports.jsx("img", { src: "./icons/QR_BTC.jpeg", alt: "Bitcoin_Quick_Response_code" }),
-    /* @__PURE__ */ jsxRuntimeExports.jsxs(
-      "button",
-      {
-        type: "button",
-        name: "copy_qr_btn",
-        title: "Copy QR Code",
-        children: [
-          "3DgeHYTfif7Neg5eLVTNgxEPd2gSbq2Pzq",
-          /* @__PURE__ */ jsxRuntimeExports.jsx("span", { children: "Copied!" })
-        ]
-      }
-    )
+    /* @__PURE__ */ jsxRuntimeExports.jsxs("button", { type: "button", name: "copy_qr_btn", onClick: copy_qr_code, title: "Copy QR Code", children: [
+      /* @__PURE__ */ jsxRuntimeExports.jsx("span", { ref: qr_code, children: "3DgeHYTfif7Neg5eLVTNgxEPd2gSbq2Pzq" }),
+      /* @__PURE__ */ jsxRuntimeExports.jsx("span", { className: "feedback", hidden: msgHidden, children: "Copied!" })
+    ] })
   ] });
 }
 clientExports.createRoot(document.getElementById("root")).render(
@@ -7397,6 +7411,6 @@ clientExports.createRoot(document.getElementById("root")).render(
 );
 function App() {
   const [listsPage, setListsPage] = reactExports.useState(true);
-  return listsPage ? /* @__PURE__ */ jsxRuntimeExports.jsx(ListContainer, { setListsPage }) : /* @__PURE__ */ jsxRuntimeExports.jsx(Tips, {});
+  return listsPage ? /* @__PURE__ */ jsxRuntimeExports.jsx(ListContainer, { setListsPage }) : /* @__PURE__ */ jsxRuntimeExports.jsx(Tips, { setListsPage });
 }
-//# sourceMappingURL=index-BqjKrReP.js.map
+//# sourceMappingURL=index-hkUaX0Is.js.map
