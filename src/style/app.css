@@ -13,6 +13,7 @@ body {
    color-scheme: light dark;
    margin: 0;
    min-width: 400px;
+   min-height: 178px;
 
    --fonts: system-ui, Arial, Helvetica, sans-serif;
    --fonts-size: 15px;

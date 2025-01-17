@@ -7481,4 +7481,4 @@ function App() {
   const [listsPage, setListsPage] = reactExports.useState(true);
   return listsPage ? /* @__PURE__ */ jsxRuntimeExports.jsx(ListContainer, { setListsPage }) : /* @__PURE__ */ jsxRuntimeExports.jsx(Tips, { setListsPage });
 }
-//# sourceMappingURL=index-tS2YDfwm.js.map
+//# sourceMappingURL=index-B4yFWvGO.js.map
