@@ -7060,6 +7060,8 @@ const Search_Icon = ({ fill, width = "24px", height = "24px" }) => /* @__PURE__ 
 const Sort_By_Alpha_Icon = ({ fill, width = "24px", height = "24px" }) => /* @__PURE__ */ jsxRuntimeExports.jsx("svg", { xmlns: "http://www.w3.org/2000/svg", viewBox: "0 -960 960 960", width, height, fill, children: /* @__PURE__ */ jsxRuntimeExports.jsx("path", { d: "m108.31-296.46 143.51-367.08h60.41l142.46 367.08h-61.54l-33.14-91.23h-157.4l-35.07 91.23h-59.23Zm111.92-141.08h121.54l-59.54-159.92H279l-58.77 159.92Zm323.23 141.08v-53.77l198.08-262H552.46v-51.31h253.08v53.77l-196.85 262h198.85v51.31H543.46ZM369.23-747.85 480-858.61l110.77 110.76H369.23ZM480-101.39 369.23-212.15h221.54L480-101.39Z" }) });
 const Toggle_On_Icon = ({ fill, width = "24px", height = "24px" }) => /* @__PURE__ */ jsxRuntimeExports.jsx("svg", { xmlns: "http://www.w3.org/2000/svg", viewBox: "0 -960 960 960", width, height, fill, children: /* @__PURE__ */ jsxRuntimeExports.jsx("path", { d: "M288-260q-91.67 0-155.83-64.14Q68-388.28 68-479.91q0-91.63 64.17-155.86Q196.33-700 288-700h384q91.67 0 155.83 64.14Q892-571.72 892-480.09q0 91.63-64.17 155.86Q763.67-260 672-260H288Zm383.95-110q45.82 0 77.93-32.07Q782-434.14 782-479.95q0-45.82-32.07-77.93Q717.86-590 672.05-590q-45.82 0-77.93 32.07Q562-525.86 562-480.05q0 45.82 32.07 77.93Q626.14-370 671.95-370Z" }) });
 const Toggle_Off_Icon = ({ fill, width = "24px", height = "24px" }) => /* @__PURE__ */ jsxRuntimeExports.jsx("svg", { xmlns: "http://www.w3.org/2000/svg", viewBox: "0 -960 960 960", width, height, fill, children: /* @__PURE__ */ jsxRuntimeExports.jsx("path", { d: "M288-260q-91.67 0-155.83-64.14Q68-388.28 68-479.91q0-91.63 64.17-155.86Q196.33-700 288-700h384q91.67 0 155.83 64.14Q892-571.72 892-480.09q0 91.63-64.17 155.86Q763.67-260 672-260H288Zm-.05-110q45.82 0 77.93-32.07Q398-434.14 398-479.95q0-45.82-32.07-77.93Q333.86-590 288.05-590q-45.82 0-77.93 32.07Q178-525.86 178-480.05q0 45.82 32.07 77.93Q242.14-370 287.95-370Z" }) });
+const Settings_Icon = ({ fill, width = "24px", height = "24px" }) => /* @__PURE__ */ jsxRuntimeExports.jsx("svg", { xmlns: "http://www.w3.org/2000/svg", viewBox: "0 -960 960 960", width, height, fill, children: /* @__PURE__ */ jsxRuntimeExports.jsx("path", { d: "m420.69-116-21.23-107.85q-26.07-9.38-52.96-24.07-26.88-14.7-48.19-33.77L194.46-247l-59.3-103 81.61-71.77q-2.38-13.92-3.96-28.42-1.58-14.5-1.58-29.43 0-14.53 1.58-28.84t3.96-29.77L135.16-610l59.3-102.23 103.46 34.31q22.47-19.46 48.39-33.96t52.77-24.27L420.69-844h118.62l21.23 108.23q28 10.54 52.57 24.27 24.58 13.73 47.43 33.58l105-34.31L824.84-610l-83.15 72.92q3.15 14.69 4.35 28.62 1.19 13.92 1.19 28.46 0 14.15-1.39 28.08-1.38 13.92-3.76 29.77L824.46-350l-59.31 103-104.61-35.08q-22.85 19.85-47.81 33.96-24.96 14.12-52.19 23.89L539.31-116H420.69ZM462-168h35.62L517-268.15q37.62-7 69.46-25.23 31.85-18.24 57.39-48.39L740.23-309l18.39-30-76.77-67.38q6-18.54 9.3-36.47 3.31-17.92 3.31-37.15 0-19.62-3.31-37.15-3.3-17.54-9.3-35.7L759.38-621 741-651l-97.54 32.38q-22.08-27.46-56.61-47.42-34.54-19.96-70.23-25.81L498-792h-36.38l-18.24 99.77q-37.61 6.23-70.03 24.65-32.43 18.43-57.97 48.96L219-651l-18.38 30L277-553.62q-6 16.24-9.5 35.12t-3.5 38.88q0 19.62 3.5 38.12 3.5 18.5 9.12 35.12l-76 67.38L219-309l96-32q24.77 29.38 57.19 47.81 32.43 18.42 70.81 25.42L462-168Zm16.46-188q51.92 0 87.96-36.04 36.04-36.04 36.04-87.96 0-51.92-36.04-87.96Q530.38-604 478.46-604q-51.54 0-87.77 36.04T354.46-480q0 51.92 36.23 87.96Q426.92-356 478.46-356ZM480-480Z" }) });
+const Close_Icon = ({ fill, width = "24px", height = "24px" }) => /* @__PURE__ */ jsxRuntimeExports.jsx("svg", { xmlns: "http://www.w3.org/2000/svg", viewBox: "0 -960 960 960", width, height, fill, children: /* @__PURE__ */ jsxRuntimeExports.jsx("path", { d: "M291-253.85 253.85-291l189-189-189-189L291-706.15l189 189 189-189L706.15-669l-189 189 189 189L669-253.85l-189-189-189 189Z" }) });
 function List({ superlist, dispatch }) {
   const add_site = (list_index2, list_name2) => {
     chrome.tabs.query({ active: true, currentWindow: true }).then((tabs) => {
@@ -7290,15 +7292,16 @@ function ListContainer({ setListsPage }) {
     dispatch({ type: "CHANGE_TAB", list_name });
   };
   const search_in_list = () => {
-    const search_str = `"${search_input.current.value}"`;
+    const search_str = settings["exact_results"] ? `"${search_input.current.value}"` : `${search_input.current.value}`;
+    const disposition = settings["from_popup_to_new_tab"] ? "NEW_TAB" : "CURRENT_TAB";
     const list_index = superlist == null ? void 0 : superlist.lists.findIndex((list) => list.active);
     if (list_index === void 0 || list_index === -1) {
-      chrome.search.query({ text: search_str, disposition: "NEW_TAB" });
+      chrome.search.query({ text: search_str, disposition });
       return;
     }
     let ticked_sites = superlist.lists[list_index].sites.filter((site) => site.checked);
     if (ticked_sites.length === 0) {
-      chrome.search.query({ text: search_str, disposition: "NEW_TAB" });
+      chrome.search.query({ text: search_str, disposition });
       return;
     }
     const { inclusive } = superlist.lists[list_index];
@@ -7308,7 +7311,7 @@ function ListContainer({ setListsPage }) {
     }).join(inclusive ? " | " : " ");
     chrome.search.query({
       text: search_str.concat(inclusive ? ` (${ticked_sites})` : ` ${ticked_sites}`),
-      disposition: "NEW_TAB"
+      disposition
     });
     return;
   };
@@ -7322,9 +7325,19 @@ function ListContainer({ setListsPage }) {
       });
     }
   };
+  const toggle_setting = (setting) => {
+    setSettings((prev_settings) => {
+      const updated_settings = { ...prev_settings };
+      updated_settings[setting] = !updated_settings[setting];
+      chrome.storage.local.set({ "settings": updated_settings }).then(update_context_menu);
+      return updated_settings;
+    });
+  };
   const [superlist, dispatch] = reactExports.useReducer(reducer, null);
   const search_input = reactExports.useRef();
   const superlist_just_loaded = reactExports.useRef(true);
+  const [settings, setSettings] = reactExports.useState(null);
+  const settings_popover = reactExports.useRef();
   reactExports.useEffect(() => {
     if (superlist === null) {
       chrome.storage.local.get({
@@ -7332,16 +7345,23 @@ function ListContainer({ setListsPage }) {
           lists: [{ list_name: "_unclassified", sites: [], inclusive: true, ascending_order: true, active: true }],
           ascending_order: true
         }
-      }).then(({ superlist: superlist2 }) => {
-        dispatch({ type: "LOAD_SUPERLIST", superlist: superlist2 });
-      });
-      chrome.tabs.query({ active: true, currentWindow: true }).then((tabs) => {
-        chrome.tabs.sendMessage(tabs[0].id, "GET_SELECTED_TEXT").then((selected_text) => {
-          search_input.current.defaultValue = selected_text;
-          search_input.current.select();
-        }).catch(() => {
-          console.log("NarrowD tried to send the message 'GET_SELECTED_TEXT' to this tab's content script, but NarrowD could not inject its content script into this tab in the first place because this tab's URL is not of scheme 'http' or 'https', which are the only ones that can have a content script injected into them.");
-        });
+      }).then(({ superlist: superlist2 }) => dispatch({ type: "LOAD_SUPERLIST", superlist: superlist2 }));
+      chrome.storage.local.get({
+        "settings": {
+          "exact_results": true,
+          "from_popup_to_new_tab": false,
+          "from_context_menu_to_new_tab": true
+        }
+      }).then(({ settings: settings2 }) => setSettings(settings2));
+      chrome.tabs.query({ active: true, currentWindow: true }).then((tabs) => chrome.tabs.sendMessage(tabs[0].id, "GET_SELECTED_TEXT")).then((selected_text) => {
+        search_input.current.defaultValue = selected_text;
+        search_input.current.select();
+      }).catch(() => {
+        console.log(`NarrowD's popup failed to send the message 'GET_SELECTED_TEXT', because this tab doesn't have a content script to receive it. NarrowD injects its content script when you navigate into a page of scheme 'http' or 'https'; that means that either:
+
+- This tab's page is not of scheme 'http' or 'https', or
+
+- NarrowD has been updated (thereby removing the previous content script) but it has not injected the new content script because you have not navigated in this tab since then (try refreshing the page).`);
       });
     } else if (superlist_just_loaded.current) {
       superlist_just_loaded.current = false;
@@ -7357,6 +7377,7 @@ function ListContainer({ setListsPage }) {
       }
     } }),
     /* @__PURE__ */ jsxRuntimeExports.jsx("button", { type: "button", title: "Search in marked sites", onClick: search_in_list, children: /* @__PURE__ */ jsxRuntimeExports.jsx(Search_Icon, { fill: "dodgerblue" }) }),
+    /* @__PURE__ */ jsxRuntimeExports.jsx("button", { type: "button", title: "Settings", popovertarget: "settings_popover", children: /* @__PURE__ */ jsxRuntimeExports.jsx(Settings_Icon, { fill: "darkorange" }) }),
     /* @__PURE__ */ jsxRuntimeExports.jsx("button", { type: "button", title: "Create new list", onClick: create_list, children: /* @__PURE__ */ jsxRuntimeExports.jsx(Playlist_Add_Icon, { fill: "forestgreen" }) }),
     /* @__PURE__ */ jsxRuntimeExports.jsx("button", { type: "button", title: "Reverse tags", onClick: reverse_superlist, children: /* @__PURE__ */ jsxRuntimeExports.jsx(Sort_By_Alpha_Icon, { fill: "darkslateblue" }) }),
     /* @__PURE__ */ jsxRuntimeExports.jsx("button", { type: "button", onClick: () => setListsPage(false), children: "TIPS" }),
@@ -7367,7 +7388,52 @@ function ListContainer({ setListsPage }) {
         /* @__PURE__ */ jsxRuntimeExports.jsx("label", { htmlFor: id, className: inclusive ? "inclusive-tab" : "exclusive-tab", children: list_name })
       ] });
     }) }),
-    /* @__PURE__ */ jsxRuntimeExports.jsx(List, { superlist, dispatch })
+    /* @__PURE__ */ jsxRuntimeExports.jsx(List, { superlist, dispatch }),
+    /* @__PURE__ */ jsxRuntimeExports.jsx("div", { popover: "auto", id: "settings_popover", ref: settings_popover, children: /* @__PURE__ */ jsxRuntimeExports.jsxs("div", { className: "popover_body", children: [
+      /* @__PURE__ */ jsxRuntimeExports.jsxs("label", { children: [
+        /* @__PURE__ */ jsxRuntimeExports.jsx(
+          "input",
+          {
+            type: "checkbox",
+            checked: settings == null ? void 0 : settings["exact_results"],
+            onChange: () => toggle_setting("exact_results")
+          }
+        ),
+        "Look for exact results."
+      ] }),
+      /* @__PURE__ */ jsxRuntimeExports.jsxs("label", { children: [
+        /* @__PURE__ */ jsxRuntimeExports.jsx(
+          "input",
+          {
+            type: "checkbox",
+            checked: settings == null ? void 0 : settings["from_popup_to_new_tab"],
+            onChange: () => toggle_setting("from_popup_to_new_tab")
+          }
+        ),
+        "Open a new tab for the popup's search bar results."
+      ] }),
+      /* @__PURE__ */ jsxRuntimeExports.jsxs("label", { children: [
+        /* @__PURE__ */ jsxRuntimeExports.jsx(
+          "input",
+          {
+            type: "checkbox",
+            checked: settings == null ? void 0 : settings["from_context_menu_to_new_tab"],
+            onChange: () => toggle_setting("from_context_menu_to_new_tab")
+          }
+        ),
+        "Open a new tab for the context menu search results."
+      ] }),
+      /* @__PURE__ */ jsxRuntimeExports.jsx(
+        "button",
+        {
+          type: "button",
+          className: "close_btn",
+          title: "Close settings",
+          onClick: () => settings_popover.current.hidePopover(),
+          children: /* @__PURE__ */ jsxRuntimeExports.jsx(Close_Icon, { fill: "dodgerblue" })
+        }
+      )
+    ] }) })
   ] });
 }
 function Tips({ setListsPage }) {
@@ -7387,17 +7453,19 @@ function Tips({ setListsPage }) {
   return /* @__PURE__ */ jsxRuntimeExports.jsxs("section", { className: "tips", children: [
     /* @__PURE__ */ jsxRuntimeExports.jsx("button", { type: "button", onClick: () => setListsPage(true), children: "Go Back" }),
     /* @__PURE__ */ jsxRuntimeExports.jsxs("ol", { children: [
-      /* @__PURE__ */ jsxRuntimeExports.jsx("li", { children: "If you want NarrowD to use a different search engine, change your browser's search engine (in your browser settings)." }),
-      /* @__PURE__ */ jsxRuntimeExports.jsx("li", { children: "If your search throws no results, try removing the quotation marks from the text generated by NarrowD (in the results page)." }),
+      /* @__PURE__ */ jsxRuntimeExports.jsx("li", { children: "If you want NarrowD to use a different search engine, change your browser's search engine." }),
       /* @__PURE__ */ jsxRuntimeExports.jsxs("li", { children: [
         /* @__PURE__ */ jsxRuntimeExports.jsx("kbd", { children: "Ctrl+Shift+Space" }),
         " opens NarrowD's popup."
       ] }),
       /* @__PURE__ */ jsxRuntimeExports.jsxs("li", { children: [
         /* @__PURE__ */ jsxRuntimeExports.jsx("kbd", { children: "Ctrl+Space" }),
-        " focuses the current site's search bar (if any) so you can type in it right away (it doesn't work on every site, though)."
+        " focuses the current site's search bar, so you can type in it right away (it doesn't work on every site, though)."
       ] }),
-      /* @__PURE__ */ jsxRuntimeExports.jsx("li", { children: 'Some search engines have a 32-word limit. A "word" is any character sequence delimited by whitespace, for example: "this.counts-as-one.word", so the number of words in your query plus the number of check-marked sites of your active list should not exceed 32, or the search engine might ignore some of the query.' })
+      /* @__PURE__ */ jsxRuntimeExports.jsx("li", { children: 'You can change the above keyboard shortcuts in your browser settings, look for something like: "Manage extensions" > "Keyboard shortcuts".' }),
+      /* @__PURE__ */ jsxRuntimeExports.jsx("li", { children: "Try selecting some text in the current page, and then open NarrowD's popup. The text selected will be automatically pasted into the popup's search bar." }),
+      /* @__PURE__ */ jsxRuntimeExports.jsx("li", { children: "While your active list has at least 1 check-marked site, if you select some text in the current page and right-click it, you'll see NarrowD's option in the context menu. Try it." }),
+      /* @__PURE__ */ jsxRuntimeExports.jsx("li", { children: "You may tip me with any amount of Bitcoin, if you want:" })
     ] }),
     /* @__PURE__ */ jsxRuntimeExports.jsx("img", { src: "./icons/QR_BTC.jpeg", alt: "Bitcoin_Quick_Response_code" }),
     /* @__PURE__ */ jsxRuntimeExports.jsxs("button", { type: "button", name: "copy_qr_btn", onClick: copy_qr_code, title: "Copy QR Code", children: [
@@ -7413,4 +7481,4 @@ function App() {
   const [listsPage, setListsPage] = reactExports.useState(true);
   return listsPage ? /* @__PURE__ */ jsxRuntimeExports.jsx(ListContainer, { setListsPage }) : /* @__PURE__ */ jsxRuntimeExports.jsx(Tips, { setListsPage });
 }
-//# sourceMappingURL=index-hkUaX0Is.js.map
+//# sourceMappingURL=index-4GNrCOPw.js.map

@@ -14,16 +14,27 @@ chrome.contextMenus.onClicked.addListener(search_in_site)
 
 function search_in_site(info, tab) {
 
-   chrome.tabs.sendMessage(tab.id, "GET_SELECTED_TEXT").then(selected_text => {
+   chrome.tabs.sendMessage(tab.id, "GET_SELECTED_TEXT")
+      .then(selected_text => {
+         const [list_type, hostname] = info.menuItemId.split("-")
 
-      const [list_type, hostname] = info.menuItemId.split("-")
+         const search_str = list_type === "inclusive"
+            ? `"${selected_text}" site:${hostname}`
+            : `"${selected_text}" -site:${hostname}`
 
-      const search_str = list_type === "inclusive"
-         ? `"${selected_text}" site:${hostname}`
-         : `"${selected_text}" -site:${hostname}`
-
-      chrome.search.query({ text: search_str, disposition: "NEW_TAB" })
-   })
+         return chrome.storage.local.get({
+            "settings": {
+               "exact_results": true,
+               "from_popup_to_new_tab": false,
+               "from_context_menu_to_new_tab": true
+            }
+         }).then(({ settings }) => {
+            const disposition = settings["from_context_menu_to_new_tab"] ? "NEW_TAB" : "CURRENT_TAB"
+            return chrome.search.query({ text: search_str, disposition })
+         })
+      }).catch(() => {
+         console.log(`NarrowD's service worker failed to send the message 'GET_SELECTED_TEXT', because this tab doesn't have a content script to receive it. NarrowD injects its content script when you navigate into a page of scheme 'http' or 'https'; that means that either:\n\n- This tab's page is not of scheme 'http' or 'https', or\n\n- NarrowD has been updated (thereby removing the previous content script) but it has not injected the new content script because you have not navigated in this tab since then (try refreshing the page).`)
+      })
 }
 
 function migrate({ reason, previousVersion }) {
@@ -64,7 +75,7 @@ function focus_search_bar(command, tab) {
       chrome.tabs
          .sendMessage(tab.id, command)
          .catch(() => {
-            console.log(`NarrowD tried to send the message '${command}' to this tab's content script, but NarrowD could not inject its content script into this tab in the first place because this tab's URL is not of scheme 'http' or 'https', which are the only ones that can have a content script injected into them.`)
+            console.log(`NarrowD's service worker failed to send the message '${command}', because this tab doesn't have a content script to receive it. NarrowD injects its content script when you navigate into a page of scheme 'http' or 'https'; that means that either:\n\n- This tab's page is not of scheme 'http' or 'https', or\n\n- NarrowD has been updated (thereby removing the previous content script) but it has not injected the new content script because you have not navigated in this tab since then (try refreshing the page).`)
          })
    }
 }

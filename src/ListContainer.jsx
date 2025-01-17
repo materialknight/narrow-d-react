@@ -1,7 +1,7 @@
-import { useReducer, useRef, useEffect } from "react"
+import { useReducer, useRef, useEffect, useState } from "react"
 import Lists from "./Lists.jsx"
 import reducer from "./reducer"
-import { Search_Icon, Playlist_Add_Icon, Sort_By_Alpha_Icon } from "./style/icons.jsx"
+import { Search_Icon, Playlist_Add_Icon, Sort_By_Alpha_Icon, Settings_Icon, Close_Icon } from "./style/icons.jsx"
 
 export default function ListContainer({ setListsPage }) {
 
@@ -35,14 +35,19 @@ export default function ListContainer({ setListsPage }) {
 
    const search_in_list = () => {
 
-      const search_str = `"${search_input.current.value}"`
+      const search_str = settings["exact_results"]
+         ? `"${search_input.current.value}"`
+         : `${search_input.current.value}`
+
+      const disposition = settings["from_popup_to_new_tab"] ? "NEW_TAB" : "CURRENT_TAB"
+
       const list_index = superlist?.lists.findIndex(list => list.active)
       // If list_index is undefined, it's the 1st render and the superlist has not loaded yet.
       // If list_index is -1, there is no active list because the last one was deleted.
       // In either case, there's nothing to add to the search string, so I search and return.
       if (list_index === undefined || list_index === -1)
       {
-         chrome.search.query({ text: search_str, disposition: "NEW_TAB" })
+         chrome.search.query({ text: search_str, disposition })
          return
       }
 
@@ -50,7 +55,7 @@ export default function ListContainer({ setListsPage }) {
 
       if (ticked_sites.length === 0)
       {
-         chrome.search.query({ text: search_str, disposition: "NEW_TAB" })
+         chrome.search.query({ text: search_str, disposition })
          return
       }
 
@@ -64,7 +69,7 @@ export default function ListContainer({ setListsPage }) {
 
       chrome.search.query({
          text: search_str.concat(inclusive ? ` (${ticked_sites})` : ` ${ticked_sites}`),
-         disposition: "NEW_TAB"
+         disposition
       })
       return
    }
@@ -82,9 +87,22 @@ export default function ListContainer({ setListsPage }) {
       }
    }
 
+   const toggle_setting = (setting) => {
+      setSettings(prev_settings => {
+         const updated_settings = { ...prev_settings }
+         updated_settings[setting] = !updated_settings[setting]
+
+         chrome.storage.local.set({ "settings": updated_settings }).then(update_context_menu)
+
+         return updated_settings
+      })
+   }
+
    const [superlist, dispatch] = useReducer(reducer, null)
    const search_input = useRef()
    const superlist_just_loaded = useRef(true)
+   const [settings, setSettings] = useState(null)
+   const settings_popover = useRef()
 
    useEffect(() => {
       if (superlist === null)
@@ -94,21 +112,24 @@ export default function ListContainer({ setListsPage }) {
                lists: [{ list_name: "_unclassified", sites: [], inclusive: true, ascending_order: true, active: true }],
                ascending_order: true
             }
-         }).then(({ superlist }) => {
-            dispatch({ type: "LOAD_SUPERLIST", superlist })
-         })
+         }).then(({ superlist }) => dispatch({ type: "LOAD_SUPERLIST", superlist }))
+
+         chrome.storage.local.get({
+            "settings": {
+               "exact_results": true,
+               "from_popup_to_new_tab": false,
+               "from_context_menu_to_new_tab": true
+            }
+         }).then(({ settings }) => setSettings(settings))
 
          chrome.tabs.query({ active: true, currentWindow: true })
-            .then(tabs => {
-               chrome.tabs
-                  .sendMessage(tabs[0].id, "GET_SELECTED_TEXT")
-                  .then(selected_text => {
-                     search_input.current.defaultValue = selected_text
-                     search_input.current.select()
-                  })
-                  .catch(() => {
-                     console.log("NarrowD tried to send the message 'GET_SELECTED_TEXT' to this tab's content script, but NarrowD could not inject its content script into this tab in the first place because this tab's URL is not of scheme 'http' or 'https', which are the only ones that can have a content script injected into them.")
-                  })
+            .then(tabs => chrome.tabs.sendMessage(tabs[0].id, "GET_SELECTED_TEXT"))
+            .then(selected_text => {
+               search_input.current.defaultValue = selected_text
+               search_input.current.select()
+            })
+            .catch(() => {
+               console.log(`NarrowD's popup failed to send the message 'GET_SELECTED_TEXT', because this tab doesn't have a content script to receive it. NarrowD injects its content script when you navigate into a page of scheme 'http' or 'https'; that means that either:\n\n- This tab's page is not of scheme 'http' or 'https', or\n\n- NarrowD has been updated (thereby removing the previous content script) but it has not injected the new content script because you have not navigated in this tab since then (try refreshing the page).`)
             })
       }
       else if (superlist_just_loaded.current)
@@ -133,6 +154,9 @@ export default function ListContainer({ setListsPage }) {
          <button type="button" title="Search in marked sites" onClick={search_in_list}>
             <Search_Icon fill="dodgerblue" />
          </button>
+         <button type="button" title="Settings" popovertarget="settings_popover">
+            <Settings_Icon fill="darkorange" />
+         </button>
          <button type="button" title="Create new list" onClick={create_list}>
             <Playlist_Add_Icon fill="forestgreen" />
          </button>
@@ -151,7 +175,36 @@ export default function ListContainer({ setListsPage }) {
                </>
             )
          })}</nav>
+
          <Lists superlist={superlist} dispatch={dispatch} />
+
+         <div popover="auto" id="settings_popover" ref={settings_popover}>
+            <div className="popover_body">
+               <label>
+                  <input type="checkbox" checked={settings?.["exact_results"]}
+                     onChange={() => toggle_setting("exact_results")}
+                  />
+                  Look for exact results.
+               </label>
+               <label>
+                  <input type="checkbox" checked={settings?.["from_popup_to_new_tab"]}
+                     onChange={() => toggle_setting("from_popup_to_new_tab")}
+                  />
+                  Open a new tab for the popup's search bar results.
+               </label>
+               <label>
+                  <input type="checkbox" checked={settings?.["from_context_menu_to_new_tab"]}
+                     onChange={() => toggle_setting("from_context_menu_to_new_tab")}
+                  />
+                  Open a new tab for the context menu search results.
+               </label>
+               <button type="button" className="close_btn" title="Close settings"
+                  onClick={() => settings_popover.current.hidePopover()}
+               >
+                  <Close_Icon fill="dodgerblue" />
+               </button>
+            </div>
+         </div>
       </article>
    )
 }
