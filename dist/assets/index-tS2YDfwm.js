@@ -7116,7 +7116,7 @@ function List({ superlist, dispatch }) {
     new_list_name = new_list_name.trim();
     const duplicate_list_name = superlist.lists.some((list) => list.list_name === new_list_name);
     if (duplicate_list_name) {
-      alert(`There is already a list called "${list_name}"`);
+      alert(`There is already a list called "${new_list_name}"`);
       return;
     }
     dispatch({ type: "EDIT_LIST_NAME", list_index: list_index2, new_list_name });
@@ -7481,4 +7481,4 @@ function App() {
   const [listsPage, setListsPage] = reactExports.useState(true);
   return listsPage ? /* @__PURE__ */ jsxRuntimeExports.jsx(ListContainer, { setListsPage }) : /* @__PURE__ */ jsxRuntimeExports.jsx(Tips, { setListsPage });
 }
-//# sourceMappingURL=index-4GNrCOPw.js.map
+//# sourceMappingURL=index-tS2YDfwm.js.map

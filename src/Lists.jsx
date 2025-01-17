@@ -83,7 +83,7 @@ export default function List({ superlist, dispatch }) {
 
       if (duplicate_list_name)
       {
-         alert(`There is already a list called "${list_name}"`)
+         alert(`There is already a list called "${new_list_name}"`)
          return
       }
       dispatch({ type: "EDIT_LIST_NAME", list_index, new_list_name })
