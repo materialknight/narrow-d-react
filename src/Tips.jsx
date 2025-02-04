@@ -27,8 +27,8 @@ export default function Tips({ setListsPage }) {
          <ol>
             <li>If you want NarrowD to use a different search engine, change your
                browser's search engine.</li>
-            <li><kbd>Ctrl+Shift+Space</kbd> opens NarrowD's popup.</li>
-            <li><kbd>Ctrl+Space</kbd> focuses the current site's search bar, so you can type in it right away (it doesn't work on every site, though).</li>
+            <li><kbd>Alt+N</kbd> opens NarrowD's popup.</li>
+            <li><kbd>Alt+S</kbd> focuses the current site's search bar, so you can type in it right away (it doesn't work on every site, though).</li>
             <li>You can change the above keyboard shortcuts in your browser settings, look for something like: "Manage extensions" &gt; "Keyboard shortcuts".</li>
             <li>Try selecting some text in the current page, and then open NarrowD's popup. The text selected will be automatically pasted into the popup's search bar.</li>
             <li>While your active list has at least 1 check-marked site, if you select some text in the current page and right-click it, you'll see NarrowD's option in the context menu. Try it.</li>

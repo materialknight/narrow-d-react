@@ -48,7 +48,7 @@ Or, if your active list is exclusive, NarrowD will do a web search looking for a
 
 ### "Go to a search bar in the current page":
 
-Default keyboard shortcut: `Ctrl + Space`
+Default keyboard shortcut: `Alt + S`
 
 This command tries to find and focus a text input (the search bar, hopefully) in the current web page, so you can start typing in it right away. If there are several text inputs, you can loop through them by repeating the keyboard shortcut.
 
@@ -56,7 +56,7 @@ This command won't work in all sites, but it will work in many.
 
 ### "Activate the extension":
 
-Default keyboard shortcut: `Ctrl + Shift + Space`
+Default keyboard shortcut: `Alt + N`
 
 Opens the extension's popup, just like clicking the extension's icon.
 

@@ -1,7 +1,7 @@
 {
    "manifest_version": 3,
    "name": "NarrowD",
-   "version": "2.0.0",
+   "version": "2.0.1",
    "description": "Narrow down your search results to the sites you want.",
    "permissions": [
       "search",
@@ -40,16 +40,16 @@
    "commands": {
       "_execute_action": {
          "suggested_key": {
-            "default": "Ctrl+Shift+Space",
-            "windows": "Ctrl+Shift+Space",
-            "linux": "Ctrl+Shift+Space"
+            "default": "Alt+N",
+            "windows": "Alt+N",
+            "linux": "Alt+N"
          }
       },
       "go_to_page_search_bar": {
          "suggested_key": {
-            "default": "Ctrl+Space",
-            "windows": "Ctrl+Space",
-            "linux": "Ctrl+Space"
+            "default": "Alt+S",
+            "windows": "Alt+S",
+            "linux": "Alt+S"
          },
          "description": "Go to a search bar in the current page"
       }

@@ -7455,11 +7455,11 @@ function Tips({ setListsPage }) {
     /* @__PURE__ */ jsxRuntimeExports.jsxs("ol", { children: [
       /* @__PURE__ */ jsxRuntimeExports.jsx("li", { children: "If you want NarrowD to use a different search engine, change your browser's search engine." }),
       /* @__PURE__ */ jsxRuntimeExports.jsxs("li", { children: [
-        /* @__PURE__ */ jsxRuntimeExports.jsx("kbd", { children: "Ctrl+Shift+Space" }),
+        /* @__PURE__ */ jsxRuntimeExports.jsx("kbd", { children: "Alt+N" }),
         " opens NarrowD's popup."
       ] }),
       /* @__PURE__ */ jsxRuntimeExports.jsxs("li", { children: [
-        /* @__PURE__ */ jsxRuntimeExports.jsx("kbd", { children: "Ctrl+Space" }),
+        /* @__PURE__ */ jsxRuntimeExports.jsx("kbd", { children: "Alt+S" }),
         " focuses the current site's search bar, so you can type in it right away (it doesn't work on every site, though)."
       ] }),
       /* @__PURE__ */ jsxRuntimeExports.jsx("li", { children: 'You can change the above keyboard shortcuts in your browser settings, look for something like: "Manage extensions" > "Keyboard shortcuts".' }),
@@ -7481,4 +7481,4 @@ function App() {
   const [listsPage, setListsPage] = reactExports.useState(true);
   return listsPage ? /* @__PURE__ */ jsxRuntimeExports.jsx(ListContainer, { setListsPage }) : /* @__PURE__ */ jsxRuntimeExports.jsx(Tips, { setListsPage });
 }
-//# sourceMappingURL=index-B4yFWvGO.js.map
+//# sourceMappingURL=index-DLUROKkQ.js.map
