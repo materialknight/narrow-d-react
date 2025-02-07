@@ -2,13 +2,13 @@
 
 ## Installation
 
-You can install NarrowD from the [Chrome Web Store](https://chromewebstore.google.com/detail/narrowd/lldlnefpmdemkflnodmcpfabibaccogh).
+You can install NarrowD from the [Chrome Web Store](https://chromewebstore.google.com/detail/narrowd/lldlnefpmdemkflnodmcpfabibaccogh) or the [Edge Add-ons](https://microsoftedge.microsoft.com/addons/detail/narrowd/mpjgbneoadkmjdbanpmahnenfbifkkan).
 
 ## The main feature - WEB SEARCH FILTER
 
 **Useful if you have a favorite set of sites to look for documentation, news, tutorials, articles, recipes, etc., or if you want to ignore sites with bad content that appear among the first search results.**
 
-You can create site lists to filter NarrowD's web search results. How so?
+You can instruct your search engine to look for results only in the sites you want. How so?
 
 You can add the site you're currently in to a list in NarrowD (if you do, NarrowD's icon will become green). You may create many lists, but the popup will only show one at a time, this is the "active list". A list can be in 1 of 2 modes: inclusive (green) or exclusive (red) (you can change the mode at any time).
 
